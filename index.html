@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <title>Spiele-App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-title">
+      <svg class="app-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#111827"/>
+            <stop offset="1" stop-color="#1f2937"/>
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="96" fill="url(#g)"/>
+        <g transform="translate(256 256)" fill="#7aa2f7">
+          <path d="M-64 128h128c16 0 16-24 0-24h-8c22-20 40-46 40-80 0-62-50-112-112-112S-128 62-128 124c0 34 18 60 40 80h-8c-16 0-16 24 0 24z"/>
+          <circle r="18" cy="-126"/>
+          <circle r="10" cy="-158"/>
+          <circle r="6" cy="-176"/>
+        </g>
+      </svg>
+      <span>Spiele-App</span>
+    </div>
+  </header>
+
+  <main id="view-container">
+
+    <!-- Hauptmenü -->
+    <section id="view-home" class="view active">
+      <h1 class="sr-only">Hauptmenü</h1>
+      <div class="menu-list">
+        <button class="menu-btn" data-target="view-chess-setup" aria-label="Schach öffnen">
+          ♟️ Schach
+        </button>
+      </div>
+    </section>
+
+    <!-- Schach: Setup -->
+    <section id="view-chess-setup" class="view">
+      <button class="nav-back" data-target="view-home" aria-label="Zurück zum Hauptmenü">← Zurück</button>
+      <h2>Schach</h2>
+      <form id="chess-setup-form" class="setup-form" onsubmit="return false;">
+        <fieldset>
+          <legend>Gegner</legend>
+          <label class="radio-row">
+            <input type="radio" name="opponent" value="human" checked>
+            Mensch vs. Mensch (lokal)
+          </label>
+          <label class="radio-row">
+            <input type="radio" name="opponent" value="bot">
+            Mensch vs. Computer
+          </label>
+        </fieldset>
+
+        <fieldset id="bot-options" class="hidden">
+          <legend>Bot-Schwierigkeit</legend>
+          <label class="radio-row">
+            <input type="radio" name="difficulty" value="easy" checked>
+            Leicht
+          </label>
+          <label class="radio-row">
+            <input type="radio" name="difficulty" value="medium">
+            Mittel
+          </label>
+          <label class="radio-row">
+            <input type="radio" name="difficulty" value="hard">
+            Schwer
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Brettfarben</legend>
+          <label class="radio-row">
+            <input type="radio" name="boardTheme" value="classic" checked>
+            Schwarz/Weiß
+          </label>
+          <label class="radio-row">
+            <input type="radio" name="boardTheme" value="pastel">
+            Hellgrün/Hellgelb
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Startspieler</legend>
+          <label class="radio-row">
+            <input type="radio" name="playerColor" value="w" checked>
+            Weiß beginnt (Standard)
+          </label>
+          <label class="radio-row">
+            <input type="radio" name="playerColor" value="b">
+            Schwarz beginnt
+          </label>
+        </fieldset>
+
+        <div class="actions">
+          <button id="start-chess" class="primary">Partie starten</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Schach: Spiel -->
+    <section id="view-chess" class="view">
+      <div class="top-bar">
+        <button class="nav-back" data-target="view-chess-setup" aria-label="Zurück">←</button>
+        <div class="status">
+          <div id="turn-indicator" aria-live="polite">Am Zug: Weiß</div>
+          <div id="game-state" aria-live="polite"></div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+
+      <div id="chess-wrapper">
+        <div id="board" role="grid" aria-label="Schachbrett"></div>
+        <div id="controls">
+          <div class="legend">
+            Keine Zeitbegrenzung. Sprache: Deutsch.
+          </div>
+          <div class="btn-row">
+            <button id="promote-queen" class="chip" data-piece="q">Dame</button>
+            <button id="promote-rook" class="chip" data-piece="r">Turm</button>
+            <button id="promote-bishop" class="chip" data-piece="b">Läufer</button>
+            <button id="promote-knight" class="chip" data-piece="n">Springer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
